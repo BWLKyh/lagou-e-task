@@ -28,6 +28,7 @@
     "lint": "gulp lint",
     "serve": "gulp serve",
     "build": "gulp build",
+    "develop": "gulp develop",
     "start": "gulp start",
     "deploy": "gulp deploy --production"
   },
@@ -43,6 +44,8 @@
     "popper.js": "1.16.1"
   },
   "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0"
   },
   "engines": {
     "node": ">=6"

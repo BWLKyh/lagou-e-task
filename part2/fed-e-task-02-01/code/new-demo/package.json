@@ -1,0 +1,9 @@
+{
+  "name": "new-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@bwlkyh/pages-demo": "^1.0.0"
+  }
+}
