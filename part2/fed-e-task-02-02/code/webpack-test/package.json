@@ -1,0 +1,10 @@
+{
+  "name": "webpack-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "4.40.2",
+    "webpack-cli": "^4.9.2"
+  }
+}
