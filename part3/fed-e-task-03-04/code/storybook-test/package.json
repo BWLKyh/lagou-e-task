@@ -1,0 +1,37 @@
+{
+  "name": "storybook-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "lerna": "lerna publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@storybook/addon-actions": "^6.5.5",
+    "@storybook/addon-essentials": "^6.5.5",
+    "@storybook/addon-interactions": "^6.5.5",
+    "@storybook/addon-links": "^6.5.5",
+    "@storybook/builder-webpack4": "^6.5.5",
+    "@storybook/manager-webpack4": "^6.5.5",
+    "@storybook/testing-library": "0.0.11",
+    "@storybook/vue": "^6.5.5",
+    "babel-loader": "^8.2.5",
+    "lerna": "^5.0.0",
+    "vue-loader": "15.9.3",
+    "vue-template-compiler": "2.6.11"
+  },
+  "dependencies": {
+    "vue": "2.6.11"
+  }
+}
