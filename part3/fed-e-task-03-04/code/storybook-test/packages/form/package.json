@@ -1,15 +1,18 @@
 {
-  "name": "lg-form",
-  "version": "1.0.0",
+  "name": "bwlkyh-lg-form",
+  "version": "0.0.4",
   "description": "",
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "del": "rimraf dist"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "lodash": "4"
-  }
+  },
+  "gitHead": "3d1d62b0c2470a63a48e4d9290ca85388f3c9469"
 }

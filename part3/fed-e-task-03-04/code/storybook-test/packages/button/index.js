@@ -1,4 +1,4 @@
-import Button from './src/Button.vue'
+import Button from './src/button.vue'
 
 // 方便通过 Vue.use()引入
 Button.install = (Vue) => {

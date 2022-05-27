@@ -1,4 +1,4 @@
-import Input from './src/Input.vue'
+import Input from './src/input.vue'
 
 // 方便通过 Vue.use()引入
 Input.install = (Vue) => {
