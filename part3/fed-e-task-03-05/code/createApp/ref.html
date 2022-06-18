@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app2">
+    <button @click="increase">按钮</button>
+    <span>{{count}}</span>
+  </div>
+  <script type="module">
+    import {createApp,reactive,toRefs,ref,onMounted,onUnmounted} from './node_modules/vue/dist/vue.esm-browser.js'
+
+    // ref示例
+    function useCount(){
+      const count=ref(0)
+      // 1. 参数是对象,内部就是调用 reactive
+      // 2. 参数是基本类型,内部会创建一个只有 value 属性的对象,该对象的 value 属性有 getter 和 setter
+      return {
+        count,
+        increase:()=>{
+          count.value++ // 模板中使用时可以省略 value,但变化数据时需要使用.value
+        }
+      }
+    }
+    createApp({
+      setup(){
+        return {
+          ...useCount() // 此处可解构是因为 useCount 返回的是包含代理对象的对象
+        }
+      }
+    }).mount('#app2')
+  </script>
+</body>
+</html>

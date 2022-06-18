@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    x: {{x}} <br>
+    y: {{y}}
+  </div>
+  <div id="app2">
+    <button @click="increase">按钮</button>
+    <span>{{count}}</span>
+  </div>
+  <script type="module">
+    import {createApp,reactive,toRefs,ref,onMounted,onUnmounted} from './node_modules/vue/dist/vue.esm-browser.js'
+    function useMousePosition(){
+      const position=reactive({ // 返回一个 proxy 对象
+        x:0,
+        y:0
+      })
+      // 过去是在 data 选项中设置响应式数据,但此处封装到一个函数中,这里使用 reactive
+      // 此处不使用 vue.observer名称是因为与其他库 rsjs 冲突
+      const update=e=>{
+        position.x=e.pageX
+        position.y=e.pageY
+      }
+
+      onMounted(()=>{
+        window.addEventListener('mousemove',update)
+      })
+      onUnmounted(()=>{
+        window.removeEventListener('mousemove',update)
+      })
+
+      return toRefs(position) // 将响应式对象(代理对象)中的所有属性也转换成响应式的对象然后挂载到新创建的对象上,最后返回, 它内部会为代理对象每个属性创建一个具有 value属性的对象,该对象是响应式的
+    }
+
+    const app = createApp({
+      // 1.传统写法
+      // data(){ // data不支持对象写法
+      //   return{
+      //     position:{
+      //       x:0,
+      //       y:0
+      //     }
+      //   }
+      // }
+      // 2. Composition API 写法
+      setup(){ 
+        // const position=useMousePosition(0)
+        // position 是返回的 proxy 对象, 通过 position.x 访问时调用的proxy 对象中的 getter 拦截收集依赖,当 position.x 变化时会调用 setter 拦截触发更新
+        const {x,y}=useMousePosition(0) 
+        // 相当于定义了 x, y 两个变量来接收 position.x 和 position.y
+        // 而基本类型的赋值就是把值在内存中复制一份, 解构出来的只是基本类型的变量, 与代理对象无关, 当给 x,y 重新赋值时也不会调用 setter ,无法触发更新操作
+        return {
+          x,y
+        }
+      },
+      mounted(){
+        this.position.x=100 // 可以在此处直接使用 position
+      }
+    })
+    app.mount('#app')
+
+    // ref示例, 显然一个 html 中不能同时挂载多个 vue 实例
+    function useCount(){
+      const count=ref(0)
+      // 1. 参数是对象,内部就是调用 reactive
+      // 2. 参数是基本类型,内部会创建一个只有 value 属性的对象,该对象的 value 属性有 getter 和 setter
+      return {
+        count,
+        increase:()=>{
+          count.value++ // 模板中使用时可以省略 value,但变化数据时需要使用.value
+        }
+      }
+    }
+    createApp({
+      setup(){
+        return {
+          ...useCount() // 此处可解构是因为 useCount 返回的是包含代理对象的对象
+        }
+      }
+    }).mount('#app2')
+  </script>
+</body>
+</html>
